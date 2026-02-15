@@ -1,0 +1,1 @@
+ALTER TABLE users ADD COLUMN sleep_time VARCHAR(10) DEFAULT '22:00';
