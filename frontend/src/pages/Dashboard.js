@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Link } from 'react-router-dom';
 
 function Dashboard({ onLogout }) {
@@ -14,7 +14,7 @@ function Dashboard({ onLogout }) {
         const fetchData = async () => {
             try {
                 // Fetch Medicines
-                const medResponse = await axios.get(`http://localhost:8000/get_medicines.php?user_id=${userId}`);
+                const medResponse = await api.get(`/get_medicines.php?user_id=${userId}`);
                 if (Array.isArray(medResponse.data)) {
                     setMedicines(medResponse.data);
                 }
@@ -31,7 +31,7 @@ function Dashboard({ onLogout }) {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this medicine?')) {
             try {
-                const response = await axios.post('http://localhost:8000/delete_medicine.php', { id });
+                const response = await api.post('/delete_medicine.php', { id });
                 if (response.data.status === 'success') {
                     setMedicines(medicines.filter(med => med.id !== id));
                 } else {
@@ -51,7 +51,7 @@ function Dashboard({ onLogout }) {
 
     const handleSaveSleep = async () => {
         try {
-            await axios.post('http://localhost:8000/update_settings.php', {
+            await api.post('/update_settings.php', {
                 user_id: userId,
                 sleep_time: sleepTime
             });

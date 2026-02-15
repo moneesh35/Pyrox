@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 
 function AddMedicine() {
@@ -45,7 +44,7 @@ function AddMedicine() {
         const formattedTime = `${hour.toString().padStart(2, '0')}:${timeParts.minute}`;
 
         try {
-            const response = await axios.post('http://localhost:8000/add_medicine.php', {
+            const response = await api.post('/add_medicine.php', {
                 user_id: userId,
                 ...formData,
                 reminder_time: formattedTime

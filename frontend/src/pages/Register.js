@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 
 function Register() {
@@ -14,7 +14,8 @@ function Register() {
         e.preventDefault();
         console.log("Submitting registration...");
         try {
-            const response = await axios.post('http://localhost:8000/register.php', {
+            // Using the centralized API instance
+            const response = await api.post('/register.php', {
                 name,
                 email,
                 phone,

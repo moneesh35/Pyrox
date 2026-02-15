@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 function EditMedicine() {
@@ -27,7 +27,7 @@ function EditMedicine() {
     useEffect(() => {
         const fetchMedicineDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/get_medicines.php?user_id=${userId}`);
+                const response = await api.get(`/get_medicines.php?user_id=${userId}`);
                 if (Array.isArray(response.data)) {
                     const medicine = response.data.find(m => m.id === id || m.id === parseInt(id));
                     if (medicine) {
@@ -83,7 +83,7 @@ function EditMedicine() {
         const formattedTime = `${hour.toString().padStart(2, '0')}:${timeParts.minute}`;
 
         try {
-            const response = await axios.post('http://localhost:8000/update_medicine.php', {
+            const response = await api.post('/update_medicine.php', {
                 id: id,
                 ...formData,
                 reminder_time: formattedTime

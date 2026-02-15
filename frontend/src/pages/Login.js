@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 
 function Login({ onLogin }) {
@@ -11,8 +11,8 @@ function Login({ onLogin }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // NOTE: Update the URL port if your PHP server runs on a different port
-            const response = await axios.post('http://localhost:8000/login.php', {
+            // Using the centralized API instance
+            const response = await api.post('/login.php', {
                 phone,
                 password
             });
